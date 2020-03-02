@@ -2,6 +2,7 @@ setwd('~/Documents/Projects/Shayp/')
 
 library("lubridate")
 library("magrittr")
+find_water_softener <- dget('find_water_softener.R') # algo de détection
 
 Data <- read.csv('export_20190301_3A9B9D.csv')
 
@@ -33,17 +34,26 @@ plot(onedaytime,onedaypulses,'h')
 title(fridays_list[1])
 # sélection vdd 1-2am ----
 
-fridays_night <- fridays[which(hour(fridays) >= 1 & hour(fridays) < 2)]
-fridays_night_pulses <- fridays_pulses[which(hour(fridays) >= 1 & hour(fridays) < 2)]
+fridays_night <- fridays[which(hour(fridays) >= 1 & hour(fridays) < 4)]
+fridays_night_pulses <- fridays_pulses[which(hour(fridays) >= 1 & hour(fridays) < 4)]
 
 plot(fridays_night,fridays_night_pulses,'h')
 
-onedaytime <- fridays_night[which(floor_date(fridays_night, unit = "day") == fridays_list[10])]
-onedaypulses <- fridays_night_pulses[which(floor_date(fridays_night, unit = "day") == fridays_list[10])]
+water_softener_on <- vector(length = length(fridays_list))
+for (i in (1:length(fridays_list))) {
+  
+  onedaytime <- fridays_night[which(floor_date(fridays_night, unit = "day") == fridays_list[i])]
+  onedaypulses <- fridays_night_pulses[which(floor_date(fridays_night, unit = "day") == fridays_list[i])]
+  
+  # count occurences ----
+  water_softener_on[i] <- find_water_softener(onedaypulses)
+  
+  
+  plot(onedaytime,onedaypulses,'h')
+  title(fridays_list[i])
+  mtext(paste('water softener on?',water_softener_on[i]),side = 3)
 
-plot(onedaytime,onedaypulses,'h')
-title(fridays_list[1])
-
+}
 
 
 
