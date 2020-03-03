@@ -1,14 +1,13 @@
-function(pulses) {
+function(time,pulses) {
   
   # This function calculate if a water softener has been used
   # return TRUE if water softener detected (and then stop)
   # return FALSE if no water softener is detected
   
   p <- 1
+  res <- data.frame("First peak" = time[1],"Second peak"= time[1])
   
   while (p <= length(pulses)) { # loop that check pulses one to one
-    
-    print(p)
     
     first_peak <- 0
     second_peak <- 0
@@ -18,8 +17,7 @@ function(pulses) {
       if (pulses[p + 1] < 2){ # if the peak is finished
         
         first_peak <- p
-        cat('first peak detected at: ',p, '\n')
-        
+
       }
     }
     
@@ -31,7 +29,6 @@ function(pulses) {
         if (pulses[first_peak + i] >= 2) { # second peak found
           
           second_peak <- p + i
-          cat('second peak detected at: ',second_peak,'\n')
           i = i+10
           
         }else {
@@ -41,28 +38,27 @@ function(pulses) {
         }
       }
     }
-        
+    
     if (second_peak != 0) { # check continuous consumption
       
       no_pulse <- 0 # sometimes not pulse during regeneration
-
-      for (j in (first_peak : second_peak)) {
+      
+      for (j in seq(from = first_peak+1, to = second_peak-1)) {
         
-        if (pulses[j] == 0) {
+        if (pulses[j] == 0 | pulses[j] > 1) {
           
-          cat('pulse en ',j,'equals',pulses[j],'\n')
           no_pulse = no_pulse + 1
           
         }
       }
       if (no_pulse < 3) {
         
-        return(TRUE)
+        res <- rbind(res,list(time[first_peak],time[second_peak]))
+        #print(time[first_peak])
         
       }else{
         
         p = second_peak
-        cat('p set to: ',p)
         
       }
       
@@ -71,6 +67,7 @@ function(pulses) {
     p = p + 1
   }
   
-  return(FALSE)
+  res <- res[-1,]
+  return(res)
   
 }

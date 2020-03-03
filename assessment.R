@@ -55,14 +55,23 @@ for (i in (1:length(fridays_list))) {
 
 }
 
+cat('Number of occurences: ',sum(water_softener_on))
 
+# detection with all the data ----
 
+water_softener_counter <- dget('water_softener_counter.R') # algo de détection
 
+water_softener <- water_softener_counter(CET,pulses)
 
+# plot one day ----
 
+day_selected <- ymd("2019-03-01")
+day_2 <- ymd("2019-03-10")
+time_selected <- CET[which(floor_date(CET, unit = "day") >= day_selected 
+                           & floor_date(CET, unit = "day") < day_2)]
+pulses_selected <- pulses[which(floor_date(CET, unit = "day") >= day_selected 
+                                & floor_date(CET, unit = "day") < day_2)]
 
-
-
-
-
+plot(time_selected,pulses_selected,'h')
+title(day_selected)
 
