@@ -9,11 +9,6 @@ Data <- read.csv('export_20190301_3A9B9D.csv')
 # pulse = 10l
 # time UTC
  
-# convert UTC time to CET time
-# trouver les vdd
-# compter les occurences de water softener
-# proposer autres solutions de comptage
- 
 UTC <- Data$timestamp
 pulses <- Data$pulses
  
@@ -40,13 +35,14 @@ fridays_night_pulses <- fridays_pulses[which(hour(fridays) >= 1 & hour(fridays) 
 plot(fridays_night,fridays_night_pulses,'h')
 
 water_softener_on <- vector(length = length(fridays_list))
-for (i in (1:length(fridays_list))) {
+
+for (i in (1:length(fridays_list))) { 
   
   onedaytime <- fridays_night[which(floor_date(fridays_night, unit = "day") == fridays_list[i])]
   onedaypulses <- fridays_night_pulses[which(floor_date(fridays_night, unit = "day") == fridays_list[i])]
   
   # count occurences ----
-  water_softener_on[i] <- find_water_softener(onedaypulses)
+  water_softener_on[i] <- find_water_softener(onedaypulses) # check if the water softener is used
   
   
   plot(onedaytime,onedaypulses,'h')

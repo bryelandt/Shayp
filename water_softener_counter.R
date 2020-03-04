@@ -1,8 +1,8 @@
 function(time,pulses) {
   
-  # This function calculate if a water softener has been used
-  # return TRUE if water softener detected (and then stop)
-  # return FALSE if no water softener is detected
+  # This function calculate when a water softener has been used
+  # return a data frame with the time of the first peak and the time 
+  # of the second peak for each occurence detected
   
   p <- 1
   res <- data.frame("First peak" = time[1],"Second peak"= time[1])
