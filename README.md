@@ -12,3 +12,7 @@ For the exercise you can use the tools that you want. Just make sure to document
 
 Share the project link (github, gitlab, etc.) or send me the project as a .zip file by e-mail before the interview.
 Don't hesitate to contact me if there are any questions.
+
+## Useful doc
+
+https://inspectapedia.com/plumbing/Water_Softener_Operation.php
