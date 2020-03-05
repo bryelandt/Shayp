@@ -8,7 +8,7 @@ function(pulses) {
   
   while (p <= length(pulses)) { # loop that check pulses one to one
     
-    print(p)
+    # print(p)
     
     first_peak <- 0
     second_peak <- 0
@@ -18,7 +18,7 @@ function(pulses) {
       if (pulses[p + 1] < 2){ # if the peak is finished
         
         first_peak <- p
-        cat('first peak detected at: ',p, '\n')
+        # cat('first peak detected at: ',p, '\n')
         
       }
     }
@@ -31,7 +31,7 @@ function(pulses) {
         if (pulses[first_peak + i] >= 2) { # second peak found
           
           second_peak <- p + i
-          cat('second peak detected at: ',second_peak,'\n')
+          # cat('second peak detected at: ',second_peak,'\n')
           i = i+10
           
         }else {
@@ -50,7 +50,7 @@ function(pulses) {
         
         if (pulses[j] == 0) {
           
-          cat('pulse en ',j,'equals',pulses[j],'\n')
+          # cat('pulse en ',j,'equals',pulses[j],'\n')
           no_pulse = no_pulse + 1
           
         }
@@ -62,7 +62,7 @@ function(pulses) {
       }else{
         
         p = second_peak
-        cat('p set to: ',p)
+        # cat('p set to: ',p)
         
       }
       
