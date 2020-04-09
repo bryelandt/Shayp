@@ -22,24 +22,12 @@ from tools import events2array
 events_array = events2array(events_list)
 print(events_array.shape)
 
-# To choose the cluster number
-# kmax = 5
-# from Clustering import calculate_WSS
-# WSS = calculate_WSS(events_array,kmax)
-#
-# from Clustering import calculate_Silouette
-# sil = calculate_Silouette(events_array,kmax)
-#
-# ax = plt.gca()
-# ax2 = ax.twinx()
-#
-# ax.plot(range(2,kmax+2),WSS)
-# ax2.plot(range(2,kmax+1),sil)
-# plt.show()
+# from Clustering import K_means
+# clusters = K_means(events_array,2)
 
-from Clustering import K_means
-clusters = K_means(events_array,2)
 
+from Clustering import calculate_dendrogram
+clusters = calculate_dendrogram(events_array)
 
 # plot results
 for k in np.arange(2):
@@ -51,3 +39,18 @@ for k in np.arange(2):
         plt.title(events_list[i].index[0])
         plt.savefig(name)
         plt.close()
+
+# To choose the cluster number with kmeans
+# kmax = 5
+# from Clustering import calculate_WSS
+# WSS = calculate_WSS(events_array,kmax)
+#
+# from Clustering import calculate_Silouette
+# sil = calculate_Silouette(events_array,kmax)
+#
+# ax = plt.gca()
+# ax2 = ax.twinx()
+
+# ax.plot(range(2,kmax+2),WSS)
+# ax2.plot(range(2,kmax+1),sil)
+# plt.show()
